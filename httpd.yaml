@@ -1,0 +1,24 @@
+---
+- name: 웹서버 설치
+  hosts: all
+  become: yes
+  
+  tasks:
+    - name: nginx
+      apt:
+        name: nginx
+        state: present
+    - name: index.html
+      get_url:
+        url: https://www.nginx.com
+        dest: /var/www/html
+    - name: service 
+      service:
+        name: nginx
+        state: started
+        enabled: true
+    - name: ufw
+      service:
+        name: ufw
+        state: stopped
+        enabled: false

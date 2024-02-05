@@ -1,0 +1,9 @@
+---
+- name: Deploy Nginx to Workers
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: nginx
+      shell: docker service create mynginx --replicas 3 --constraint node.role==worker --with-registry-auth -p 8008:80 nginx
+
